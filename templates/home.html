@@ -1,0 +1,81 @@
+{% import "elements.html" as elements %}
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<style>
+   .flashes{
+    list-style-type: none;
+    margin: 0px;
+    padding-left: 0px;
+    overflow: hidden;
+    background-color: #7786f9;
+    width: 100%;
+  }
+    
+</style>
+
+<title>Museum Database Homepage</title>
+</head>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+        <li style = "text-align: left;">{{ message }}</li>
+        <br>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endwith %}
+    <ul class = "navbarone">
+
+        {{ elements.navbar('home', 'Home')}}
+        {{ elements.navbar('artworks', 'Artworks')}}
+        {{ elements.navbar('exhibitions', 'Exhibitions')}}
+        {{ elements.navbar('films', 'Films')}}
+        {{ elements.navbar('gift_shop', 'Gift Shop')}}
+        {% if session['user-role'] == 'ADMIN' %}
+        {{ elements.navbar('members', 'User Account Management')}}
+        {% endif %}
+        {% if session['user-role'] == 'USER' %}
+        {{ elements.navbar('donations', 'Donations')}}
+        {{ elements.navbar('notification', 'Notifications')}}
+        {{ elements.navbar('members', 'Memberships')}}
+        {% endif %}
+        
+        {% if session['user-role'] == 'ADMIN' %}
+        {{ elements.navbar('donations', 'Donation Report')}}
+          {{ elements.navbar('report_gifts', 'Gift Report')}}
+          {{ elements.navbar('report_tickets', 'Ticket Report')}}
+          {{ elements.navbar('employees', 'Employees')}}
+        {% endif %}
+        
+          <li style="float:right"><a href="{{ url_for('logout') }}">Logout</a></li>
+        
+    </ul>
+
+    <p class = "homepageDescription" style="text-align: center;">
+      Welcome to the Museum Database. Here, you can find links to webpages 
+      containing data about various aspects of the museum, including 
+      artworks, exhibitions, ticket sales, and more.
+    </p>
+
+    {{ elements.image_contain('artworks', '/img/art3.jpeg', 'Artworks' )}}
+    {{ elements.image_contain('exhibitions', '/img/exhibit.png', 'Exhibitions' )}}
+    {% if session['user-role'] == 'ADMIN' %}
+    {{ elements.image_contain('members', '/img/mems.jpeg', 'User Account Management' )}}
+    {% endif %}
+    {% if session['user-role'] == 'USER' %}
+    {{ elements.image_contain('members', '/img/mems.jpeg', 'Memberships' )}}
+    {% endif %}
+    {{ elements.image_contain('films', '/img/films.webp', 'Films' )}}
+    {{ elements.image_contain('gift_shop', '/img/Picture1.jpg', 'Gift Shop' )}}
+    {% if session['user-role'] == 'ADMIN' %}
+      {{ elements.image_contain('employees', '/img/emps.jpeg', 'Employees' )}}
+    {% endif %}
+   
+  
+ 
+

@@ -1,0 +1,134 @@
+{% import "elements.html" as elements %}
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Artworks</title>
+</head>
+<style>
+  div.gallery {
+    border: 1px solid #ccc;
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 90%;
+    margin-bottom:  10px;
+    width:70%;
+
+  }
+  
+  div.gallery:hover {
+    border: 1px solid #777;
+  }
+  
+  div.gallery img {
+    width: 100%;
+    height: auto;
+  }
+  
+  div.desc {
+    padding: 15px;
+    text-align: center;
+    width:100%;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .responsive {
+    padding: 0 16px;
+    float: right;
+    width: 20%;
+  }
+  
+  @media only screen and (max-width: 700px) {
+    .responsive {
+      width: 49.99999%;
+      margin: 6px 0;
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .responsive {
+      width: 70%;
+    }
+  }
+  
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  </style>
+ 
+  <body>
+
+<h1>Artworks</h1>
+<ul class = "navbarone">
+  <li><a href="{{ url_for('home') }}">Home</a></li>
+  <li class = "active"><a href="{{ url_for('artworks') }}">Artworks</a></li>
+
+    {% if session['user-role'] == 'ADMIN' %}
+    <li><a href="{{ url_for('add_new_artwork') }}">Artwork Queries</a></li>
+    {% endif %}
+</ul>
+
+<p class = "homepageDescription" style="text-align: center;"> The Museum of Arts, Houston, houses an encyclopedic collection of nearly 70,000 works of art created throughout the world, 
+from antiquity to the present. Explore the Museums art collections through this searchable database, which is continually being updated. Browse to discover 
+art across time periods, cultures, classifications, and more. 
+Then visit the Museum to experience your favorites in person.</p>
+  
+<p style="text-align: center; padding-left: 40px; padding-left: 40px; padding-top: 0px; padding-bottom: 0px;">
+  {% for art in artworks %}  
+    {{elements.art_format(art.obj_num, art.artist, art.title, art.year, art.type, art.image_id )}}
+  {% endfor %}
+
+  <div class="responsive">
+    <div class="gallery">
+      <a target="_blank" href="{{ url_for('static', filename='img_forest.jpg')}}">
+        <img src="{{ url_for('static', filename='/img/artwork4.png')}}" alt="Forest" width="600" height="400">
+      </a>
+      <div class="desc">Saul Steinberg<br>Georgetown<br>1975<br>Lithograph on Rives woven paper<br>  2023.89<br><br></div>
+    </div>
+  </div>
+
+  <div class="responsive">
+    <div class="gallery">
+      <a target="_blank" href="{{ url_for('static', filename='img_forest.jpg')}}">
+        <img src="{{ url_for('static', filename='/img/artwork6.png')}}" alt="Forest" width="600" height="400">
+      </a>
+      <div class="desc">David Barbero<br>Untitled (Taos River)<br>1989<br>Woodcut in colors on wove paper<br>2023.84<br></div>    
+  </div>
+  </div>
+
+  <div class="responsive">
+    <div class="gallery">
+      <a target="_blank" href="{{ url_for('static', filename='img_forest.jpg')}}">
+        <img src="{{ url_for('static', filename='/img/artwork5.png')}}" alt="Forest" width="600" height="400">
+      </a>
+      <div class="desc">Sergio Moyano<br>Indian Summer N.M.<br>1989<br>Monotype on woven paper<br>2023.85<br></div>    
+  </div>
+  </div>
+
+  <div class="responsive">
+    <div class="gallery">
+      <a target="_blank" href="{{ url_for('static', filename='img_forest.jpg')}}">
+        <img src="{{ url_for('static', filename='/img/artwork1.png')}}" alt="Forest" width="600" height="400">
+      </a>
+      <div class="desc">Dale Chihuly<br>Venetian Drawing<br>1993<br>Acrylic on wove paper<br>2023.87<br></div>  
+    </div>
+    </div>
+
+    <div class="responsive">
+      <div class="gallery">
+        <a target="_blank" href="{{ url_for('static', filename='img_forest.jpg')}}">
+          <img src="{{ url_for('static', filename='/img/artwork2.png')}}" alt="Forest" width="600" height="400">
+        </a>
+        <div class="desc"> Nick Cave<br>Big Floral<br>2022<br>Olefin and osnaburg<br>2023.101<br><br></div>      </div>
+      </div>
+      
+</p>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Members</title>
+</head>
+<style>
+  form {
+background-color: #f2f2f2;
+padding: 20px;
+border-radius: 5px;
+box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+margin: 20px;
+}
+
+label {
+font-weight: bold;
+display: block;
+margin-bottom: 10px;
+}
+
+input[type="submit"] {
+background-color: #4CAF50;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+background-color: #3e8e41;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+box-sizing: border-box;
+border: 2px solid #ccc;
+border-radius: 4px;
+}
+  body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+  
+  .my-table tr:nth-child(even) {
+    background-color: #98bfe4;
+  }
+
+  .my-table tr:nth-child(odd) {
+    background-color: #F6F6F6;
+  }
+
+  .my-table td, .my-table th {
+      padding: 20px;
+  }
+</style>
+<body>
+
+{% if session['user-role'] == 'ADMIN' %}
+<h1>Users</h1>
+{% endif %}
+
+{% if session['user-role'] == 'USER' %}
+<h1>Membership Store</h1>
+{% endif %}
+
+
+<ul class = "navbarone">
+    <li><a href="{{ url_for('home') }}">Home</a></li>
+    <li class = "active"><a href="{{ url_for('members') }}">Users</a></li>
+    {% if session['user-role'] == 'ADMIN' %}
+    <li><a href="{{ url_for('add_new_member') }}">Delete User Account</a></li>
+    {% endif %}
+  </ul>
+
+
+
+{% if session['user-role'] == 'USER' %}
+
+
+<p>The museum offers three different membership levels: Basic, Silver, and Gold. Basic membership costs $20 a month and provides a 10% discount on all museum items, 
+  including gift shop purchases. Silver membership costs $30 a month and provides a 20% discount, while Gold membership 
+  costs $40 a month and provides a 30% discount. These memberships are a wonderful way for frequent museum visitors to save money while supporting the museum's programs and exhibits.
+  Memberships can also be gifted by typing the email address of a friend's Archive Arts Museum Account within the email field.</p>
+
+
+<form action="/update_member" method="post" style="padding:20px;">
+  <label for="email">Email Address:</label>
+  <input type="email" name="email" required><br><br>
+  <label for="membership">Membership Type:</label>
+  <select id="membership" name="membership" required>
+      <option value="">Select Membership Type</option>
+      <option value="BASIC">Basic</option>
+      <option value="SILVER">Silver</option>
+      <option value="GOLD">Gold</option>
+  </select><br><br>
+  <input type="submit" value="Purchase Membership">
+</form>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+
+{% endif %}
+
+
+{% if session['user-role'] == 'ADMIN' %}
+  <table class="my-table">
+    <thead>
+      {% if data %}
+        <tr>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Date of Birth</th>
+            <th>Membership Level</th>
+            <th>Account Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for item in data %}
+        <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}}</td>
+            <td>{{item[3]}}</td>
+            <td>{{item[4]}}</td>
+            <td>{{item[5]}}</td>
+            {% if item[6] == 0 %}
+            <td>Inactive</td>
+            {% else %}
+            <td>Active</td>
+            {% endif %}
+
+          
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="7">{{msg}}</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+{% endif %}
+
+</body>
+</html>

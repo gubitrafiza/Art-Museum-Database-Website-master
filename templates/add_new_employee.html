@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Add New Employee</title>
+<style>
+  form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+    margin: 20px;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+
+  input[type="text"],
+  input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Employee Queries</h1>
+
+
+<ul class = "navbarone">
+  <li><a href="{{ url_for('home') }}">Home</a></li>
+  <li><a href="{{ url_for('employees') }}">Employees</a></li>
+  <li class = "active"><a href="{{ url_for('add_new_employee') }}">Employee Queries</a></li>
+</ul>
+
+<br>
+
+{% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+
+<div style="display: flex; align-items: center; justify-content: center;">
+  <form action="/add_new_employee" method="post" style="padding:20px;">
+
+  <label for="employee_first_name">First Name:</label>
+  <input type="text" name="employee_first_name" required><br><br>
+  
+  <label for="employee_last_name">Last Name:</label>
+  <input type="text" name="employee_last_name" required><br><br>
+  
+  <label for="employee_email">Email:</label>
+  <input type="email" name="employee_email" required><br><br>
+  
+  <label for="employee_ssn">SSN:</label>
+  <input type="text" name="employee_ssn" required><br><br>
+  
+  <label for="employee_phone_number">Phone Number:</label>
+  <input type="text" name="employee_phone_number" required><br><br>
+  
+  <label for="employee_date_of_birth">Date of Birth:</label>
+  <input type="date" name="employee_date_of_birth" required><br><br>
+  
+  <label for="salary">Salary:</label>
+  <input type="text" name="salary" required><br><br>
+  
+  <input type="submit" value="Add New Employee">
+  </form>
+
+  <form action="/update_employee" method="POST" style="padding:20px;">
+
+    <label for="employee_email">Email of Employee's Data to Modify:</label>
+    <input type="email" name="employee_email" required><br><br>
+  
+    <label for="employee_first_name">First Name:</label>
+    <input type="text" name="employee_first_name" required><br><br>
+    
+    <label for="employee_last_name">Last Name:</label>
+    <input type="text" name="employee_last_name" required><br><br>
+    
+    <label for="employee_ssn">SSN:</label>
+    <input type="text" name="employee_ssn" required><br><br>
+    
+    <label for="employee_phone_number">Phone Number:</label>
+    <input type="text" name="employee_phone_number" required><br><br>
+    
+    <label for="employee_date_of_birth">Date of Birth:</label>
+    <input type="date" name="employee_date_of_birth" required><br><br>
+  
+    <label for="salary">Salary:</label>
+    <input type="text" name="salary" required><br><br>
+  
+    <input type="submit" value="Update Employee">
+    </form>
+</div>
+
+
+
+</body>
+</html>

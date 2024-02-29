@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Parisienne">
+        <meta charset="utf-8">
+        <title>Registration Page</title>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .info {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                text-align: center;
+            }
+            .boxed {
+                border: 2px solid black;
+                padding: 10px;
+                max-width: 800px;
+            }
+            h1 {
+                font-size: 40px;
+                color: crimson;
+            }
+            h3 {
+                color: black;
+            }
+            input[type=text], input[type=email], input[type=password], input[type=date] {
+                width: 100%;
+                padding: 10px;
+                margin: 5px 0 15px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            input[type=submit] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            input[type=submit]:hover {
+                background-color: #45a049;
+            }
+            a {
+                color: black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="info">
+            <div class="boxed">
+                <h1>Welcome to The Archive Arts Museum</h1>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <ul class=flashes>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endwith %}
+                <div class="register">
+                    <form action="/registration" method="POST">
+                        <p><h3>Please enter your first name, last name, email, and password.</h3></p>
+                        <input type="text" name="user_fname" placeholder="First Name" required />
+                        <input type="text" name="user_lname" placeholder="Last Name" required />
+                        <input type="email" name="user_email" placeholder="Email" required />
+                        <input type="password" name="user_password" placeholder="Password" required />
+                        <br>
+                        <label for="bdate">Date of Birth</label>
+                        <input type="date" name="bdate"><br><br>
+                        <p><input type="submit" value="Register"/></p>
+                    </form>
+                    <br>
+                    <a href="{{ url_for('login') }}">Back to Login</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

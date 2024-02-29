@@ -1,0 +1,227 @@
+{% import "elements.html" as elements %}
+
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Exhibitions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 10px;
+  margin-bottom:0px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+  .button {
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 3px 1px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+  }
+  
+  .button1:hover {
+    background-color: #008CBA;
+    color: white;
+  }
+
+  /* Split the screen in half */
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.blink {
+  animation: blinker 2s 1;
+  color: rgb(38, 0, 255);
+}
+
+@keyframes blinker {
+  0% { opacity: 0.0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1.0; }
+}
+
+
+</style>
+</head>
+
+<body>
+<h1>Exhibitions</h1>
+
+
+<ul class = "navbarone">
+    <li><a href="{{ url_for('home') }}">Home</a></li>
+    <li class = "active"><a href="{{ url_for('exhibitions') }}">Exhibitions</a></li>
+    {% if session['user-role'] == 'ADMIN' %}
+    <li><a href="{{ url_for('add_new_exhibition') }}">Exhibition Queries</a></li>
+    {% endif %}
+  </ul>
+  </ul>
+  <p></p>
+
+<div class="row" style="padding-top:0px;">
+<div class = "column" style="padding-top:0px;">
+<h2 style="color:blue; font-size: 25px; padding-left:30px;" >Now On View</h2>
+</div>
+<div class = "column" style="padding-top:0px;">
+  <h2 class = "blink" style="color:blue; font-size: 25px; " >Upcoming Special Exhibitions</h2>
+  </div>
+</div>
+
+<hr width="100%" color= "grey" size="0.5px" padding="0"/>
+<div class ="column">
+<div class = "row" style="padding-left: 20px;">
+  <p> 
+    <img src="{{ url_for('static', filename='/img/img1.png')}}" alt="painting" style="width:200px; height:200px; float: left; padding-right: 10px;" />
+    <h3 style="margin-bottom:3px">Exhibit: Pixel Forest and Worry Will Vanish</h3>
+    <p style="margin-top: 0; margin-bottom:5px"></p>
+    <b>September 4, 2023</b> <br>
+    <b>Gallery:</b> Pipilotti Rist <br>
+    <b>Price:</b> $18.00 <br>
+    <b>Curator:</b> Me <br>
+    <b>Artist:</b> and Me<br>
+    {% if session['user-role'] == 'USER' %}
+    <button class = "button button1"><a href="{{ url_for('Eticket_details')}}">Buy Tickets</a></button></p>
+    {% endif %}
+  </p>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+
+<div class = "row" style="padding-left: 20px;">
+  <p> 
+    <img src="{{ url_for('static', filename='/img/img2.png')}}" alt="painting" style="width:200px; height:200px; float: left; padding-right: 10px;" />
+    <h3 style="margin-bottom:3px">Exhibit: Zen Paintings</h3>
+    <p style="margin-top: 0; margin-bottom:5px"></p>
+    <b>May 14, 2023</b> <br>
+    <b>Gallery:</b> Gitter-Yelen Collection <br>
+    <b>Price:</b> $16.00 <br>
+    <b>Curator:</b> Me <br>
+    <b>Artist:</b> and Me<br>
+    {% if session['user-role'] == 'USER' %}
+    <button class = "button button1"><a href="{{ url_for('Eticket_details')}}">Buy Tickets</a></button> 
+    {% endif %}
+  </p>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+
+<div class = "row" style="padding-left: 20px;">
+  <p> 
+    <img src="{{ url_for('static', filename='/img/img3.png')}}" alt="painting" style="width:200px; height:200px; float: left; padding-right: 10px;" />
+    <h3 style="margin-bottom:3px">Exhibit: Gentileschi, Wiley, and the Story of Judith</h3>
+    <p style="margin-top: 0; margin-bottom:5px"></p>
+    <b>April 16, 2023</b> <br>
+    <b>Gallery:</b> Portrait of Courage <br>
+    <b>Price:</b> $13.00 <br>
+    <b>Curator:</b> Me <br>
+    <b>Artist:</b> and Me<br>
+    {% if session['user-role'] == 'USER' %}
+    <button class = "button button1"><a href="{{ url_for('Eticket_details')}}">Buy Tickets</a></button>
+    {% endif %}
+  </p>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+
+<div class = "row" style="padding-left: 20px;">
+  <p> 
+    <img src="{{ url_for('static', filename='/img/img4.png')}}" alt="painting" style="width:200px; height:200px; float: left; padding-right: 10px;" />
+    <h3 style="margin-bottom:3px">Exhibit: Golden Worlds </h3>
+    <p style="margin-top: 0; margin-bottom:5px"></p>
+    <b>April 16, 2023</b> <br>
+    <b>Gallery:</b> Indigenous Colombria <br>
+    <b>Price:</b> $15.00 <br>
+    <b>Curator:</b> Me <br>
+    <b>Artist:</b> and Me<br>
+    {% if session['user-role'] == 'USER' %}
+    <button class = "button button1"><a href="{{ url_for('Eticket_details')}}">Buy Tickets</a></button> 
+    {% endif %}
+  </p>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+</div>
+
+<div class = "column">
+  
+<div class ="row">
+  <div class = "row" style="padding-left: 20px;">
+    <p> 
+      <img src="{{ url_for('static', filename='/img/e1.png')}}" alt="painting" style="width:200px; height:200px; float: left; padding-right: 10px;" />
+      <h3 style="margin-bottom:3px">Exhibit: Impressionist and Post-Impressionist Masterpieces</h3>
+      <p style="margin-top: 0; margin-bottom:5px"></p>
+      <b>May 21, 2023</b> <br>
+      <b>Gallery:</b> Pearlman Foundation <br>
+      <b>Price:</b> $13.00 <br>
+      <b>Curator:</b> Me <br>
+      <b>Artist:</b> and Me<br>
+      {% if session['user-role'] == 'USER' %}
+      <button class = "button button1"><a href="{{ url_for('Eticket_details')}}">Buy Tickets</a></button> 
+      {% endif %}
+    </p>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>
+{% for e in exhibs %}
+  {{elements.exhib_format(session['user-role'], 'Eticket_details', e.exhib_title, e.exhib_ticket_price,e.exhib_gallery, e.curator,e.exhib_artists, e.exhib_at,e.image_id )}}
+{% endfor %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% macro navbar(endpoint, name ) %}
+    {% if request.endpoint.endswith(endpoint) %}
+        <li class = "active"><a href="{{ url_for('home') }}">Home</a></li>
+    {% else %}
+    <li><a href="{{ url_for(endpoint) }}">{{name}}</a></li>
+    {% endif %}
+{% endmacro %}
+
+{% macro image_contain(endpoint, image, caption) %}
+<div class="image-container">
+    <a href="{{ url_for(endpoint) }}">
+      <img class="images" src="{{ url_for('static', filename=image) }}"> 
+    </a>
+    <div class="caption-container">
+      <div class="caption">{{caption}}</div>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro art_format(obj_num, name, title, year, type, image_id) %}
+<div class="responsive" >
+    <div class="gallery">
+      <a>
+        <img src="/image/{{image_id}}" alt="{{name}}" width="600" height="400">
+      </a>
+      <div class="desc">
+        {{name}}<br>
+        {{title}}<br>
+        {{year}}<br>
+        {{type}}<br>
+        {{obj_num}}</div>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro film_format(user_view, endpoint, view_at, title, ticket_price, dur, direc, rate, image_id) %}
+
+  <div class = "row" style="padding-left: 20px;">
+    <img src="/image/{{image_id}}"  alt="{{title}}" style="width:200px; height:250px; float: left; padding-right: 10px;" />
+    <p> 
+      <h3 style="margin-bottom:3px">{{title}}</h3>
+        <p style="text-align: left; padding-bottom: 10px;">
+        <b>Directed by {{direc}}.</b>
+        </p>
+      <p style="margin-top: 0;margin-bottom:2px">
+        <b>{{view_at.strftime("%B %d, %Y")}}</b>
+        <b>Duration:</b> {{dur}} <br>
+        <b>Price:</b> {{ticket_price}}
+        <b>Rate:</b> {{rate}}/5
+        {% if user_view == 'USER' %}
+        <button class = "button button1"><a href="{{url_for(endpoint)}}">Buy Tickets</a></button>
+        {% endif %}
+      </p>
+    </p>
+      <br>
+      <br>
+      <br>
+      <br>
+  </div>
+{% endmacro %}
+
+{% macro exhib_format(user_view,endpoint,title, ticket_price, gallery, curator, exhib_artists, view_at,image_id) %}
+
+<div class = "row" style="padding-left: 20px;">
+  <p> 
+    <img src="/image/{{image_id}}" alt="{{title}}" style="width:200px; height:200px; float: left; padding-right: 10px;" />
+    <h3 style="margin-bottom:3px">{{title}}</h3>
+    <p style="margin-top: 0; margin-bottom:5px"></p>
+    <b>{{view_at.strftime("%B %d, %Y")}}</b> <br>
+    <b>Gallery:</b> {{gallery}} <br>
+    <b>Price:</b> {{ticket_price}}<br>
+    <b>Curator:</b> {{curator}}<br>
+    <b>Artist:</b> {{exhib_artists}}<br>
+    {% if user_view == 'USER' %}
+    <button class = "button button1"><a href="{{ url_for(endpoint)}}">Buy Tickets</a></button> 
+    {% endif %}
+  </p>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+
+{% endmacro %}
+
+
+{% macro gift_format( gift_name, gift_type, gift_price, image_id) %}
+<div class="responsive" >
+    <div class="gallery">
+      <a>
+        <img src="/image/{{image_id}}" alt="{{gift_name}}" width="600" height="400">
+      </a>
+      <div class="desc">
+        {{gift_name}}<br>
+        {{gift_type}}<br>
+        {{gift_price}}<br></div>
+    </div>
+  </div>
+{% endmacro %}

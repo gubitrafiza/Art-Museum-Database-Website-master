@@ -1,0 +1,7 @@
+.git/
+venv
+__pycache__
+.DS_Store
+config.toml
+*.pyc
+.vscode

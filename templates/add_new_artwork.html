@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Add New Artwork</title>
+<style>
+  form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+    margin: 20px;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+
+  input[type="text"],
+  input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Artwork Queries</h1>
+
+<ul class = "navbarone">
+  <li><a href="{{ url_for('home') }}">Home</a></li>
+  <li><a href="{{ url_for('artworks') }}">Artworks</a></li>
+  <li><a href="{{ url_for('add_new_artwork') }}">Artwork Queries</a></li>
+</ul>
+
+<div style="display: flex; align-items: center; justify-content: center;">
+
+<form action="/add_new_artwork" method="POST" enctype="multipart/form-data" style="padding:20px">
+  <label for="artist">Artist:</label>
+  <input type="text" name="artist" required><br><br>
+  <label for="artwork_title">Artwork Title:</label>
+  <input type="text" name="artwork_title" required><br><br>
+  <label for="made_on">Made On:</label>
+  <input type="date" name="made_on" required><br><br>
+  <label for="object_type">Object Type:</label>
+  <input type="text" name="object_type" required><br><br>
+  <label for="object_number">Object Number:</label>
+  <input type="text" name="object_number" required><br><br>
+  <input type="file" id="art-img" name="art_img">
+  <input type="submit" value="Add Artwork">
+</form>
+ 
+
+</div>
+</body>
+</html>

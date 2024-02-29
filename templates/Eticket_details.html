@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Ticket Details</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
+}
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 10px;
+  margin-bottom:0px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+    <h1>Ticket Details</h1>
+    
+    
+    <ul class = "navbarone">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('exhibitions') }}">Exhibitions</a></li>
+        <li class="topnav"><input type="text" placeholder="Search..."></li>
+      </ul>
+      <p></p>
+
+
+    <h2 class = "blink" style="color:blue; font-size: 25px;">Find tickets to our Exhibitions here.</h2>
+    <hr width="100%" color= "grey" size="0.5px" padding="0"/>
+  <div class = "column">
+    <div class = "row">
+ 
+    <h3 style="padding-left:20px; margin-top:10px"> General Admission</h3>
+    <p style="padding-left:20px; margin-bottom: 10px;">Visitors in the galleries / law building / arts of india galleries. General admission provides access to the MFAH art collections. Purchase online or drop by any admissions desk.</p>
+
+
+  <!-- <div class = "boxed">
+    <p style=" margin-top: 0%;">MFAH Member (Join now!)<b> Free</b><br>
+      
+      </p>   
+      </div> -->
+      {% if msg %}
+      <div>{{msg}}</div>
+      {% endif %}
+
+  <div class = "boxed">
+    <p style=" margin-top: 0%; padding-bottom: 0px; padding-left:20px; font-size: 15px"><u><b>Memebrship Discounts</u></b>
+    </p>  
+    <p style="padding-left:20px; margin-top: 2px; font-size: 15px"> General Member 	<b>   Regular Price</b><br>
+      Basic Member	<b>   10% off</b><br>
+      Silver Member	<b>   20% off</b><br>
+      Gold Memebr	<b>   30% off</b><br>
+     
+    </div>
+    
+
+ 
+     
+    <h3 style="padding-left:20px">Museum Hours</h3>
+    <p style="padding-left:20px">See the latest visiting guidelines here. Advance timed tickets recommended. We welcome all visitors at any time.
+    </p>
+  
+    <p style="padding-left:20px; padding-bottom: 20px;">
+    <b><u>Hours of Operation</u></b><br>
+    Sunday | 12:30 p.m. to 6 p.m.<br>
+    Monday | 11 a.m. to 5 p.m.<br>
+    Tuesday | 11 a.m. to 5 p.m.<br>
+    Wednesday | 11 a.m. to 5 p.m.<br>
+    Thursday | 11 a.m. to 9 p.m.<br>
+    Friday | 11 a.m. to 6 p.m.<br>
+    Saturday | 11 a.m. to 6 p.m.<br>
+    </p>
+  </div>
+</div>
+
+<div class = "row">
+  <h3 style="padding:15px; margin-top:15px"> Get Tickets here </h3>
+  <form action="/Eticket_details" method="POST" style="width:80%; margin-left:20px; font-size: 17px;">
+  <div class="elem-group inlined">
+    <div class="elem-group">
+      <label for="Exh_name">Select Exhibition Name</label>
+      <select name="exh_name" required>
+        <option value="" disabled selected hidden>Choose an Exhibition from the List</option>
+        {% for title in exhib_title %}
+          <option value="{{title}}">{{title}}</option>
+        {% endfor %}
+      </select><br><br>
+      <label for="adult" >Number of Tickets</label>
+      <input type="number" id="adult" name="total_adults" placeholder="1  " min="1"   style="text-align: right;" required>
+      <br><br>
+        <div class="elem-group">
+        <label for="email_id">E-mail </label>
+        <input type="email" id="email" name="visitor_email" placeholder="john.doe@email.com" required>
+        <input type="submit" value="Book Tickets">
+      </div>
+    </div><br>
+    </div>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+            <li style = "text-align: left;">{{ message }}</li>
+            <br>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+</div>
+</div>
+
+    </body>
+    </html>

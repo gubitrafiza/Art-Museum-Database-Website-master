@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html style="background-image: url({{ url_for('static', filename='img/silver.jpg') }}); background-size: cover;">
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Add New Member</title>
+<style>
+  form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+    margin: 20px;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+
+  input[type="text"],
+  input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Delete User Account</h1>
+
+
+<ul class = "navbarone">
+  <li><a href="{{ url_for('home') }}">Home</a></li>
+  <li><a href="{{ url_for('members') }}">Members</a></li>
+  <li><a href="{{ url_for('add_new_member') }}">Delete User Account</a></li>
+</ul>
+
+<div style="display: flex; align-items: center; justify-content: center;">
+
+
+{% if session['user-role'] == 'ADMIN' %}
+<form action="/delete_member" method="post" style="padding:20px;">
+  <label for="email">Account Email:</label>
+  <input type="text" name="email" required><br><br>
+  <input type="submit" value="Delete Member Account">
+</form>    
+
+{% endif %}
+
+</div>
+
+{% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+
+</body>
+</html>

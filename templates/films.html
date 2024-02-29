@@ -1,0 +1,157 @@
+{% import "elements.html" as elements %}
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Films</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 10px;
+  margin-bottom:0px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+  .button {
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 3px 1px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+
+  .button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+  }
+  
+  .button1:hover {
+    background-color: #008CBA;
+    color: white;
+  }
+
+  /* Split the screen in half */
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.blink {
+  animation: blinker 2s 2;
+  color: rgb(38, 0, 255);
+}
+
+@keyframes blinker {
+  0% { opacity: 0.0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1.0; }
+}
+
+
+</style>
+</head>
+
+<body>
+<h1>Films</h1>
+
+
+  <ul class = "navbarone">
+      <li><a href="{{url_for('home')}}">Home</a></li>
+      <li class = "active"><a href="{{url_for('films')}}">Films</a></li>
+      {% if session['user-role'] == 'ADMIN' %}
+      <li><a href="{{url_for('add_new_film')}}">Film Queries</a></li>
+      {% endif %}
+  </ul>
+ 
+  <div class = "column" style="padding-top:10px;">
+    <h2 class = "blink" style="color:blue; font-size: 25px; " >Now Showing</h2>
+  </div>
+  
+
+<hr width="100%" color= "grey" size="0.5px" padding="0"/>
+<div class ="column">
+<div class = "row" style="padding-left: 20px;">
+  <p> 
+    <img src="{{url_for('static', filename = '/img/ta.jpg')}}"  alt="Tadao Ando" style="width:200px; height:250px; float: left; padding-right: 10px;" />
+    <h3 style="margin-bottom:3px">From Emptiness to Infinity</h3>
+    <p style="text-align: left; padding-bottom: 10px;">
+    Directed by Tadao Ando
+    </p>
+    <p style="margin-top: 0;margin-bottom:2px"><b>July 09, 2023 | </b>
+      <b>Duration:</b> 130 min<br>
+      <b>Price:</b> $11
+      <b>Rate:</b> 4/5
+    {% if session['user-role'] == 'USER' %}
+    <button class = "button button1"><a href="{{url_for('Fticket_details')}}">Buy Tickets</a></button></p>
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+  </p>
+</div>
+
+{% for film in films %}
+  {{elements.film_format(session['user-role'], 'Fticket_details', film.view_at, film.film_title, film.ticket_price, film.dur, film.direc, film.rate, film.image_id)}}
+{% endfor %}
+<div class ="row">
+  <div class = "row" style="padding-left: 20px;">
+    <p> 
+      <img src="{{url_for('static', filename = '/img/hilma.png')}}" alt="Hilma af Klint" style="width:200px; height:250px; float: left; padding-right: 10px;" />
+      <h3 style="margin-bottom:3px">Beyond the Visible</h3>
+      <p style="text-align: left; padding-bottom: 10px;">
+        Directed by Hilma af Klint 
+      </p>
+      <p style="margin-top: 0; margin-bottom:2px"><b>May 14, 2023 | </b>
+      <b>Duration:</b> 125 min<br>
+      <b>Price:</b> $12
+      <b>Rate:</b> 3/5
+      {% if session['user-role'] == 'USER' %}
+      <button class = "button button1"><a href="{{url_for('Fticket_details')}}">Buy Tickets</a></button> </p>
+      {% endif %}
+    </p>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>
+</div>
+</body>
+</html>

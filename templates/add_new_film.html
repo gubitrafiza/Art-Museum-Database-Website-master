@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html style="background-image: url('/static/img/silver.jpg'); background-size: cover;"></html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Parisienne">
+<title>Add New Film</title>
+<style>
+  form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+    margin: 20px;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+
+  input[type="text"],
+  input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Film Queries</h1>
+
+
+<ul class = "navbarone">
+  <li><a href="{{ url_for('home') }}">Home</a></li>
+  <li><a href="{{ url_for('films') }}">Films</a></li>
+  <li class = "active"><a href="{{ url_for('add_new_film') }}">Film Queries</a></li>
+</ul>
+
+<br>
+
+{% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+
+<div style="display: flex; align-items: center; justify-content: center; padding-left: 20px;">
+
+<form action="/add_new_film" method="POST" style="padding:20px;" enctype="multipart/form-data">
+
+  <label for="viewing_at">Viewing At:</label>
+  <input type="datetime-local" name="viewing_at" required><br><br>
+  <label for="film_title">Film Title:</label>
+  <input type="text" name="film_title" required><br><br>
+  <label for="film_ticket_price">Ticket Price:</label>
+  <input type="text" name="film_ticket_price" required><br><br>
+  <label for="duration_min">Duration (min):</label>
+  <input type="number" name="duration_min" required><br><br>
+  <label for="film_director">Director:</label>
+  <input type="text" name="film_director" required><br><br>
+  <label for="film_rating">Rating:</label>
+  <input type="text" name="film_rating" required><br><br>
+  <input type="file" name="film_img"><br><br>
+  <input type="submit" value="Add New Film">
+</form>
+
+<form action="/update_film" method="POST" style="padding:20px;">
+  <label for="film_title">Film Title:</label>
+  <input type="text" name="film_title" required><br><br>
+  <label for="viewing_at">Viewing At:</label>
+  <input type="datetime-local" name="viewing_at" required><br><br>
+  <label for="film_ticket_price" required>Ticket Price:</label>
+  <input type="text" name="film_ticket_price" required><br><br>
+  <label for="duration_min" required>Duration (min):</label>
+  <input type="number" name="duration_min" required><br><br>
+  <label for="film_director" required>Director:</label>
+  <input type="text" name="film_director" required><br><br>
+  <label for="film_rating" required>Rating:</label>
+  <input type="text" name="film_rating" required><br><br>
+  <input type="submit" value="Update Film">
+</form>
+
+<form action="/delete_film" method="POST" style="padding:20px;">
+  <label for="film_title">Film Title:</label>
+  <input type="text" name="film_title" required><br><br>
+  <input type="submit" value="Delete Film">
+</form>
+
+</div>
+
+
+
+</body>
+</html>
